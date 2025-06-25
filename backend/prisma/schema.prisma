@@ -1,11 +1,33 @@
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
+  
 }
 
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+enum CompanyCategory {
+  CONSTRUCTION
+  RENTAL
+}
+
+model Company {
+  id               String          @id @default(uuid())
+  name             String
+  email            String          @unique
+  password         String          // for authentication
+  phone            String
+  address          String?
+  companyCategory  CompanyCategory // CONSTRUCTION or RENTAL
+  contractorGrade  String?         // only for construction
+  rentalCategories String?         // only for rental (comma-separated)
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+}
+
 }
 
 model Merchants {
@@ -21,3 +43,4 @@ model Merchants {
 
   @@map("merchants") 
 }
+
