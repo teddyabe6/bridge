@@ -28,8 +28,6 @@ model Company {
   updatedAt        DateTime        @updatedAt
 }
 
-}
-
 model products {
   id             Int       @id @default(autoincrement())
   name           String    @db.VarChar(255)
